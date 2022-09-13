@@ -3,17 +3,6 @@
 練習     : Jpa + validation + thymeleaf + web 
 DB       : mysql
 
-前端目錄 : resources -> static
-                     -> templates -> include -> header/footer/navbar
-                                  -> index.html
-
-後端目錄 : com.study.springmvc.contoller
-                               entity
-			       
-			       repository
-			       
-			       validator
-			       
 目前進度       : employee / Department OK
 
 紀錄修正(9/13) : 20220905PSI 的 Department 有 Employee 會有刪除失敗提示 / Department 和 Employee 新增提示 / 增加各 Entity validation
