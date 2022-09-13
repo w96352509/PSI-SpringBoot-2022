@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>DepartmentPage</title>
+<script th:inline="javascript">
+    var message = /*[[${message}]]*/
+    console.log(message);
+    if(message != null){
+    	alert(message);
+    }
+    
+    
+</script>
+ <!-- Header 區 -->
+ <th:block th:include="./include/header :: header"></th:block>
+</head>
+<body>
+ <!-- 選單區 -->
+ <th:block th:include="./include/navbar :: navbar"></th:block>
+ 
+ <!-- Context區 -->
+ 
+ <div class="container my-2">
+  <h1>Department 頁面</h1>
+  <br />
+  <form action="#" th:action="@{/department/update}" th:object="${department}" th:method="${_method}">
+    <div class="form-group">
+       <input type="hidden" th:field="*{id}" />
+       <!-- 部門名稱 -->  
+       <label style="font-size: 20px;">部門名稱 :</label>
+       <input type="text" th:field="*{name}" id="name" class="form-control" placeholder="請輸入部門名稱" />
+       <span class="fieldError" th:if="${#fields.hasErrors('*{name}')}" th:errors="*{name}"></span>
+       <br />
+       <!-- 主管名稱 -->
+       <label style="font-size: 20px;">主管名稱 :</label>
+       <input type="text" th:field="*{manager}" id="manager" class="form-control" placeholder="請輸入主管名稱" />
+       <span class="fieldError" th:if="${#fields.hasErrors('*{manager}')}" th:errors="*{manager}"></span>
+    </div>
+    <br />
+    <input type="submit" class="btn btn-primary" th:value="${_method}">
+  </form>
+  
+  <br />
+ <!-- footer區 -->
+ <th:block th:include="./include/footer :: footer"></th:block>
+</body>
+</html>

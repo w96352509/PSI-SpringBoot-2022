@@ -6,6 +6,10 @@ server:
       charset: UTF-8
       
 spring:
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
   thymeleaf:
     cache: false
     mode: HTML

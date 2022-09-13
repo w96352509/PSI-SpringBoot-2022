@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>DepartmentPage</title>
+<script th:inline="javascript">
+    var message = /*[[${message}]]*/
+    console.log(message);
+    if(message != null){
+    	alert(message);
+    }
+    
+    var resultMsg = /*[[${resultMsg}]]*/
+        console.log(resultMsg);
+    if(resultMsg != null){
+    	alert(resultMsg);
+    }    
+    
+</script>
+ <!-- Header 區 -->
+ <th:block th:include="./include/header :: header"></th:block>
+</head>
+<body>
+ <!-- 選單區 -->
+ <th:block th:include="./include/navbar :: navbar"></th:block>
+ 
+ <!-- Context區 -->
+ 
+ <div class="container my-2">
+  <h1>Department 頁面</h1>
+  <br />
+  <form action="#" th:action="@{/employee/update}" th:object="${employee}" th:method="${_method}">
+    <div class="form-group">
+       <input type="hidden" th:field="*{id}" />
+       
+       <!-- 部門名稱 -->  
+       <label style="font-size: 20px;">員工名稱 :</label>
+       <input type="text" th:field="*{name}" id="name" class="form-control" placeholder="請輸入員工名稱" />
+       <span class="fieldError" th:if="${#fields.hasErrors('*{name}')}" th:errors="*{name}"></span>
+       <br />
+       
+       <!-- 選擇部門 -->
+       <label style="font-size: 20px;">主管名稱 :</label>
+       <select class="form-control select2" th:field="*{department.id}" id="department.id">
+		  <option th:each="d:${departments}" th:value="${d.id}" th:text="${d.name}"></option>
+	   </select>
+    </div>
+    <br />
+    <input type="submit" class="btn btn-primary" th:value="${_method}">
+    <a type="button" th:href="@{/employee/}" class="btn btn-warning" >重置</a>
+  </form>
+  <br />
+   <div id="message" class="fieldError"  th:text="${message}">0</div>
+ </div>
+ <!-- footer區 -->
+ <th:block th:include="./include/footer :: footer"></th:block>
+</body>
+</html>

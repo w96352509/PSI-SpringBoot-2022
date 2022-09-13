@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+		.img-responsive {
+		  display: block;
+		  height: auto;
+		  max-width: 100%;
+		}
+	</style>
+ <!-- Header 區 -->
+ <th:block th:include="./include/header :: header"></th:block>
+</head>
+<body>
+ <!-- 選單區 -->
+ <th:block th:include="./include/navbar :: navbar"></th:block>
+ 
+ <!-- Context區 -->
+ <div class="container">
+  <h1>PSI 資料表關聯圖</h1>
+  <img class="img-responsive" th:src="@{/image/psi_table.png}">
+ </div>
+ <!-- footer區 -->
+ <th:block th:include="./include/footer :: footer"></th:block>
+</body>
+</html>

@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -23,11 +24,11 @@ public class Department {
 	private Long id;
 	
 	@Column
-	@NotNull(message = "部門名稱不可空")
+	@NotEmpty(message = "部門名稱不可空")
 	private String name;
 	
 	@Column
-	@NotNull(message = "主管名稱不可空")
+	@NotEmpty(message = "主管名稱不可空")
 	private String manager;
 	
 	@OneToMany(mappedBy = "department")
