@@ -67,7 +67,7 @@ thymeleaf 功能 :
         var message = /*[[${message}]]*/ // 此行
         console.log(message);
         if(message != null){
-    	  alert(message);
+    	  alert(message); 
         }
       </script> 
 
