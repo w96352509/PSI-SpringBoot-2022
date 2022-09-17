@@ -1,6 +1,8 @@
 package com.study.springmvc.entity;
 
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -36,6 +40,10 @@ public class Purchase {
 	@JoinColumn(name = "employee_id" , referencedColumnName = "id")
 	private Employee employee;
 
+	@OneToMany(mappedBy = "purchase")
+	@OrderBy("id ASC")
+	private List<PurchaseItem> purchaseItems = new LinkedList<>(); 
+	
 	public Long getId() {
 		return id;
 	}
@@ -66,6 +74,14 @@ public class Purchase {
 
 	public void setEmployee(Employee employee) {
 		this.employee = employee;
+	}
+
+	public List<PurchaseItem> getPurchaseItems() {
+		return purchaseItems;
+	}
+
+	public void setPurchaseItems(List<PurchaseItem> purchaseItems) {
+		this.purchaseItems = purchaseItems;
 	}
 	
 	

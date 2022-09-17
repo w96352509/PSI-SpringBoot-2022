@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>ProductPage</title>
+<script th:inline="javascript">
+    var message = /*[[${message}]]*/
+    console.log(message);
+    if(message != null){
+    	alert(message);
+    }
+    
+    var resultMsg = /*[[${resultMsg}]]*/
+        console.log(resultMsg);
+    if(resultMsg != null){
+    	alert(resultMsg);
+    }    
+    
+</script>
+ <!-- Header 區 -->
+ <th:block th:include="./include/header :: header"></th:block>
+</head>
+<body>
+ <!-- 選單區 -->
+ <th:block th:include="./include/navbar :: navbar"></th:block>
+ 
+ <!-- Context區 -->
+ 
+ <div class="container my-2">
+  <h1>Product 頁面</h1>
+  <br />
+  <form action="#" th:action="@{/product/update}" th:object="${product}" th:method="${_method}">
+    <div class="form-group">
+       <input type="hidden" th:field="*{id}" />
+       
+       <!-- 商品名稱 -->  
+       <label style="font-size: 20px;">商品名稱 :</label>
+       <input type="text" th:field="*{name}" id="name" class="form-control" placeholder="請輸入商品名稱" />
+       <span class="fieldError" th:if="${#fields.hasErrors('*{name}')}" th:errors="*{name}"></span>
+       <br />
+       
+       <!-- 商品成本 -->  
+       <label style="font-size: 20px;">商品名稱 :</label>
+       <input type="text" th:field="*{cost}" id="cost" class="form-control" placeholder="請輸入商品成本" />
+       <span class="fieldError" th:if="${#fields.hasErrors('*{cost}')}" th:errors="*{cost}"></span>
+       <br />
+       
+       <!--商品售價 -->  
+       <label style="font-size: 20px;">商品名稱 :</label>
+       <input type="text" th:field="*{price}" id="price" class="form-control" placeholder="請輸入商品成本" />
+       <span class="fieldError" th:if="${#fields.hasErrors('*{price}')}" th:errors="*{price}"></span>
+       <br />
+       
+       <!--商品描述 -->  
+       <label style="font-size: 20px;">商品名稱 :</label>
+       <textarea cols="50" rows="5" th:field="*{notice}" id="notice" class="form-control" placeholder="備註"></textarea>
+       <span class="fieldError" th:if="${#fields.hasErrors('*{notice}')}" th:errors="*{notice}"></span>
+       <br />
+       
+    </div>
+    <br />
+    <input type="submit" class="btn btn-primary" th:value="${_method}">
+    <a type="button" th:href="@{/product/}" class="btn btn-warning" >重置</a>
+  </form>
+ </div>
+ <!-- footer區 -->
+ <th:block th:include="./include/footer :: footer"></th:block>
+</body>
+</html>

@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -22,7 +23,7 @@ public class Supplier {
 	private Long id;
 	
 	@Column
-	@NotNull(message = "名稱不可空")
+	@NotEmpty(message = "名稱不可空")
 	private String name;
 	
 	@OneToMany(mappedBy = "supplier")

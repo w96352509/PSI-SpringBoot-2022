@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 
@@ -23,7 +24,7 @@ public class Product {
 	private Long id;
 	
 	@Column
-	@NotNull(message = "商品名稱不可空白")
+	@NotEmpty(message = "商品名稱不可空白")
 	private String name;
 	
 	@Column

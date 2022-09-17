@@ -85,7 +85,7 @@
       <a th:href="@{/department/edit/{id}(id=${dept.id})}" class="btn btn-primary">修改(跳頁)</a>
      </td>
      <td>
-      <a th:href="@{/department/delete/{id}(id=${dept.id})}" class="btn btn-danger">刪除</a>
+      <a onclick="var del = (confirm('確定要刪除嗎?')); return del" th:href="@{/department/delete/{id}(id=${dept.id})}" class="btn btn-danger">刪除</a>
      </td>
     </tr>
    </tbody>

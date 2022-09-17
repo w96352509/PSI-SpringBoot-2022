@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>SupplierPage</title>
+<script th:inline="javascript">
+    var message = /*[[${message}]]*/
+    console.log(message);
+    if(message != null){
+    	alert(message);
+    }
+    
+    var resultMsg = /*[[${resultMsg}]]*/
+        console.log(resultMsg);
+    if(resultMsg != null){
+    	alert(resultMsg);
+    }    
+    
+   
+    
+</script>
+
+ <!-- Header 區 -->
+ <th:block th:include="./include/header :: header"></th:block>
+</head>
+<body>
+ <!-- 選單區 -->
+ <th:block th:include="./include/navbar :: navbar"></th:block>
+ 
+ <!-- Context區 -->
+ 
+ <div class="container my-2">
+  <h1>Supplier 頁面</h1>
+  <br />
+  <form action="#" th:action="@{/supplier/}" th:object="${supplier}" th:method="${_method}">
+    <div class="form-group">
+       <input type="hidden" th:field="*{id}" />
+       
+       <!-- 供應商名稱名稱 -->  
+       <label style="font-size: 20px;">供應商名稱 :</label>
+       <input type="text" th:field="*{name}" id="name" class="form-control" placeholder="請輸入供應商名稱" />
+       <span class="fieldError" th:if="${#fields.hasErrors('*{name}')}" th:errors="*{name}"></span>
+    </div>
+    <br />
+    <input type="submit" class="btn btn-primary" th:value="${_method}">
+    <a type="button" th:href="@{/supplier/}" class="btn btn-warning" >重置</a>
+  </form>
+  
+  <br />
+  
+  <h1>供應商列表</h1>
+  <table border="1" class="table table-striped table-responsive-md">
+   <thead>
+    <tr>
+       <th>序號</th>
+       <th>名稱</th>
+       <th>供應商品</th>
+       <th>修改(SPA)</th>
+       <th>修改(跳頁)</th>
+       <th>刪除</th>
+    </tr>
+   </thead>
+   <tbody>
+    <tr th:each="sup : ${suppliers}">
+     <td th:text="${sup.id}"></td>
+     <td th:text="${sup.name}"></td>
+     <td>
+      <span th:each=" supp : ${sup.purchases}">
+      <span th:each=" suppItem : ${supp.purchaseItems}">
+       <font th:text="${suppItem.product.name}"></font>
+      </span>
+      </span>
+     </td>
+     <td>
+      <a th:href="@{/supplier/{id}(id=${sup.id})}" class="btn btn-primary">修改(SPA)</a>
+     </td>
+     <td>
+      <a th:href="@{/supplier/edit/{id}(id=${sup.id})}" class="btn btn-primary">修改(跳頁)</a>
+     </td>
+     <td>
+      <a onclick="var del = (confirm('確定要刪除嗎?')); return del" th:href="@{/supplier/delete/{id}(id=${sup.id})}" class="btn btn-danger">刪除</a>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+ </div>
+ <!-- footer區 -->
+ <th:block th:include="./include/footer :: footer"></th:block>
+</body>
+</html>

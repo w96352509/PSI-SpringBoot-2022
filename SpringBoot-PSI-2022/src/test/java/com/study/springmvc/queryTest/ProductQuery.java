@@ -1,5 +1,8 @@
 package com.study.springmvc.queryTest;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,9 +21,10 @@ public class ProductQuery {
 	@Test
 	public void test() {
 		
-		Product product = productRepository.findById(1L).get();
-		System.out.println(product.getName());
-	    
+		 List<String> supName = productRepository.findById(1L).get().getPurchaseItems().stream().map(c->c.getPurchase().getSupplier().getName()).collect(Collectors.toList());
+		 for(String s : supName) {
+			 System.out.println(s);
+		 }
 	}
 	
 }
