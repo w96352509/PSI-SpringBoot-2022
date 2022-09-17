@@ -44,6 +44,16 @@ public class Purchase {
 	@OrderBy("id ASC")
 	private List<PurchaseItem> purchaseItems = new LinkedList<>(); 
 	
+	public int getTotal() {
+		Integer total = purchaseItems.stream().mapToInt(c -> c.getAmount() * c.getProduct().getCost()).sum();
+	    // 訂單 size 如果 = 0
+		if(purchaseItems.size() == 0) {
+	    	return 0;
+	    }else {
+			return total;
+		}
+	}
+	
 	public Long getId() {
 		return id;
 	}

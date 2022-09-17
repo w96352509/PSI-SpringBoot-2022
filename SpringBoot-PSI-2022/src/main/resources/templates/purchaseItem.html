@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>DepartmentPage</title>
+<script th:inline="javascript">
+    var message = /*[[${message}]]*/
+    console.log(message);
+    if(message != null){
+    	alert(message);
+    }
+    
+    var resultMsg = /*[[${resultMsg}]]*/
+        console.log(resultMsg);
+    if(resultMsg != null){
+    	alert(resultMsg);
+    }    
+    
+</script>
+ <!-- Header 區 -->
+ <th:block th:include="./include/header :: header"></th:block>
+</head>
+<body>
+ <!-- 選單區 -->
+ <th:block th:include="./include/navbar :: navbar"></th:block>
+ 
+ <!-- Context區 -->
+ 
+ <div class="container my-2">
+  <h1>Purchase 主檔資料</h1>
+  <br />
+  <table border="1" class="table table-striped table-responsive-md">
+			<thead>
+				<tr>
+					<th>採購單主檔序號</th>
+					<th>採購單主檔日期</th>
+					<th>供應商</th>
+					<th>經手員工</th>
+					<th>採購單總細目筆數</th>
+					<th>採購總價</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td th:text="${ purchase.id }" ></td>
+					<td th:text="${ purchase.date }" ></td>
+					<td th:text="${ purchase.supplier.name }" ></td>
+					<td th:text="${ purchase.employee.name }" ></td>
+					<td th:text="${ #lists.size(purchase.purchaseItems) }" ></td>
+					<td th:text="${ purchase.total }"></td>
+				</tr>
+			</tbody>
+		</table>
+        <p />
+		<h1>PurchaseItem 明細資料</h1>
+		<table border="1" class="table table-striped table-responsive-md">
+			<thead>
+				<tr>
+					<th>流水號(index + 1)</th>
+					<th>明細ID</th>
+					<th>商品ID</th>
+					<th>商品名稱</th>
+					<th>商品成本</th>
+					<th>採購數量</th>
+					<th>小計</th>
+					<th>編輯</th>
+					<th>刪除</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="item, itemstat:${purchase.purchaseItems}">
+					<td th:text="${ itemstat.index + 1 }" ></td>
+					<td th:text="${ item.id }" ></td>
+					<td th:text="${ item.product.id }" ></td>
+					<td th:text="${ item.product.name }" ></td>
+					<td th:text="${ item.product.cost }" ></td>
+					<td th:text="${ item.amount }" ></td>
+					<td th:text="${ item.amount * item.product.cost }" ></td>
+					<td>
+						<a th:href="@{/purchase/{pid}/item/{iid}(pid=${purchase.id}, iid=${item.id})}"
+						   class="btn btn-success">編輯</a>
+					</td>
+					<td>
+						<a th:href="@{/purchase/{pid}/item/delete/{iid}(pid=${purchase.id}, iid=${item.id})}"
+						   class="btn btn-danger">刪除</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+  <br />
+ <!-- footer區 -->
+ <th:block th:include="./include/footer :: footer"></th:block>
+</body>
+</html>

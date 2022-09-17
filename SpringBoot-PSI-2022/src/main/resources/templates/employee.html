@@ -40,7 +40,7 @@
        <br />
        
        <!-- 選擇部門 -->
-       <label style="font-size: 20px;">主管名稱 :</label>
+       <label style="font-size: 20px;">部門名稱 :</label>
        <select class="form-control select2" th:field="*{department.id}" id="department.id">
 		  <option th:each="d:${departments}" th:value="${d.id}" th:text="${d.name}"></option>
 	   </select>
