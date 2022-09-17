@@ -4,6 +4,7 @@
 DB       : mysql
 
 目前進度       : 物件全 OK / view(未做) / 複習驗證(validator -> 配合購買查看庫存 -> orderItem.html 錯誤訊息)
+9/18 : 要做 validator + view + 複習雙 item
 
 紀錄修正(9/13) : 20220905PSI 的 Department 有 Employee 會有刪除失敗提示 / Department 和 Employee 新增提示 / 增加各 Entity validation
 紀錄修正(9/17) : 增加 Line 傳送無圖有圖 / 商品有訂單時防止刪除提示給予訂單ID / 增加防範誤刪(thymeleaf + onclick) /  
