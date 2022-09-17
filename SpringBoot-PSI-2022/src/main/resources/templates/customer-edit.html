@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>CustomerPage</title>
+<script th:inline="javascript">
+    var message = /*[[${message}]]*/
+    console.log(message);
+    if(message != null){
+    	alert(message);
+    }
+    
+    var resultMsg = /*[[${resultMsg}]]*/
+        console.log(resultMsg);
+    if(resultMsg != null){
+    	alert(resultMsg);
+    }    
+    
+</script>
+ <!-- Header 區 -->
+ <th:block th:include="./include/header :: header"></th:block>
+</head>
+<body>
+ <!-- 選單區 -->
+ <th:block th:include="./include/navbar :: navbar"></th:block>
+ 
+ <!-- Context區 -->
+ 
+ <div class="container my-2">
+  <h1>Customer 頁面</h1>
+  <br />
+  <form action="#" th:action="@{/customer/update}" th:object="${customer}" th:method="${_method}">
+    <div class="form-group">
+       <input type="hidden" th:field="*{id}" />
+       
+       <!-- 部門名稱 -->  
+       <label style="font-size: 20px;">客戶名稱 :</label>
+       <input type="text" th:field="*{name}" id="name" class="form-control" placeholder="請輸入名稱" />
+       <span class="fieldError" th:if="${#fields.hasErrors('*{name}')}" th:errors="*{name}"></span>
+       <br />
+       
+       <!-- 主管名稱 -->
+       <label style="font-size: 20px;">客戶手機 :</label>
+       <input type="text" th:field="*{number}" id="number" class="form-control" placeholder="請輸入手機" />
+       <span class="fieldError" th:if="${#fields.hasErrors('*{number}')}" th:errors="*{number}"></span>
+    
+    </div>
+    <br />
+    <input type="submit" class="btn btn-primary" th:value="${_method}">
+    <a type="button" th:href="@{/customer/}" class="btn btn-warning" >重置</a>
+  </form>
+  
+  <br />
+  <div id="message" class="fieldError"  th:text="${message}">0</div>
+ </div>
+ <!-- footer區 -->
+ <th:block th:include="./include/footer :: footer"></th:block>
+</body>
+</html>

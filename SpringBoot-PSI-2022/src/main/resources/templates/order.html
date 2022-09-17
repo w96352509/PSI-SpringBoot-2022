@@ -27,9 +27,9 @@
  <!-- Context區 -->
  
  <div class="container my-2">
-  <h1>Purchase 頁面</h1>
+  <h1>Order 頁面</h1>
   <br />
-  <form action="#" th:action="@{/purchase/}" th:object="${purchase}" th:method="${_method}">
+  <form action="#" th:action="@{/order/}" th:object="${order}" th:method="${_method}">
     <div class="form-group">
        <input type="hidden" th:field="*{id}" />
        
@@ -39,6 +39,13 @@
 	   <input type="date"
 			  th:value="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}"
 			  th:field="*{date}" class="form-control" />
+       <br />
+       <!-- 選擇客戶人員 -->
+       <label style="font-size: 20px;">客戶 :</label>
+       <select class="form-control select2" th:field="*{customer.id}" id="customer.id">
+		  <option th:each="c:${customers}" th:value="${c.id}" th:text="${c.name}"></option>
+	   </select>
+       <br />
        
        <!-- 選擇經手人員 -->
        <label style="font-size: 20px;">經手人員 :</label>
@@ -46,31 +53,24 @@
 		  <option th:each="e:${employees}" th:value="${e.id}" th:text="${e.name}"></option>
 	   </select>
 	   <br />
-	   
-	   <!-- 選擇商品供應者人員 -->
-       <label style="font-size: 20px;">供應商 :</label>
-       <select class="form-control select2" th:field="*{supplier.id}" id="supplier.id">
-		  <option th:each="s:${suppliers}" th:value="${s.id}" th:text="${s.name}"></option>
-	   </select>
-	   
-    </div>
+	</div>
     <br />
     <input type="submit" class="btn btn-primary" th:value="${_method}">
-    <a type="button" th:href="@{/purchase/}" class="btn btn-warning" >重置</a>
+    <a type="button" th:href="@{/order/}" class="btn btn-warning" >重置</a>
   </form>
   
   <br />
   
-  <h1>採購單列表</h1><p/>
+  <h1>訂單列表</h1><p/>
   <table border="1" class="table table-striped table-responsive-md">
    <thead>
     <tr>
        <th>序號</th>
+       <th>客戶</th>
        <th>經手人員</th>
-       <th>供應商</th>
-       <th>採購商品</th>
+       <th>購買商品</th>
        <th>下單日期</th>
-       <th>採購總成本</th>
+       <th>總價</th>
        <th>訂單細目</th>
        <th>修改(SPA)</th>
        <th>修改(跳頁)</th>
@@ -78,30 +78,30 @@
     </tr>
    </thead>
    <tbody>
-    <tr th:each="p : ${purchases}">
-     <td th:text="${p.id}"></td>
-     <td th:text="${p.employee.name}"></td>
-     <td th:text="${p.supplier.name}"></td>
+    <tr th:each="o : ${orders}">
+     <td th:text="${o.id}"></td>
+     <td th:text="${o.customer.name}"></td>
+     <td th:text="${o.employee.name}"></td>
      <td>
-      <span th:each=" p , status : ${p.purchaseItems}">
-       <font th:utext=" '商品Id:' + ${status.index} + '(' + ${p.product.name}+ ')' + '<br>'" ></font>
+      <span th:each=" o , status : ${o.orderItems}">
+       <font th:utext=" '商品Id:' + ${status.index} + '(' + ${o.product.name}+ ')' + '<br>'" ></font>
       </span>
      </td>
-     <td th:text="${p.date}"></td>
-     <td th:text="${p.total}"></td>
+     <td th:text="${o.date}"></td>
+     <td th:text="${o.total}"></td>
      <td>
-      <a th:href="@{/purchase/{pid}/item(pid=${p.id})}" class="btn btn-primary">細目</a>
+      <a th:href="@{/order/{oid}/item(oid=${o.id})}" class="btn btn-primary">細目</a>
      </td>
      <td>
-      <a th:href="@{/purchase/{id}(id=${p.id})}" class="btn btn-primary">修改(SPA)</a>
+      <a th:href="@{/order/{id}(id=${o.id})}" class="btn btn-primary">修改(SPA)</a>
      </td>
      <td>
-      <a th:href="@{/purchase/edit/{id}(id=${p.id})}" class="btn btn-primary">修改(跳頁)</a>
+      <a th:href="@{/order/edit/{id}(id=${o.id})}" class="btn btn-primary">修改(跳頁)</a>
      </td>
      <td>
-      <span th:switch="${p.total} ">
+      <span th:switch="${o.total} ">
         <span th:case="0">
-          <a onclick="var del = (confirm('確定要刪除嗎?')); return del" th:href="@{/purchase/delete/{id}(id=${p.id})}" class="btn btn-danger">刪除</a>
+          <a onclick="var del = (confirm('確定要刪除嗎?')); return del" th:href="@{/order/delete/{id}(id=${o.id})}" class="btn btn-danger">刪除</a>
         </span>
         <font color="red" th:case="*">此訂單尚有細目</font>
       </span>

@@ -20,8 +20,8 @@ public class OrderItem {
 	@Column(columnDefinition = "int default 0") // 防止 view Bug 
 	private Integer amount;
 	
+	@JoinColumn(name = "order_id" , referencedColumnName = "id") // 外鍵
 	@ManyToOne
-	@JoinColumn(name = "order_id" , referencedColumnName = "id")
 	private Order order;
 	
 	@ManyToOne

@@ -84,10 +84,20 @@ public class SupplierController {
 	  }
 	
 	@GetMapping("/delete/{id}")
-	public String delete(@PathVariable("id") Long id , RedirectAttributesModelMap modelMap) {
-		   supplierRepository.deleteById(id);
-		   modelMap.addFlashAttribute("message" , "刪除成功");
-		   return "redirect:../";
+	public String delete(Model model , @PathVariable("id") Long id , RedirectAttributesModelMap modelMap) {
+		  try {
+			  supplierRepository.deleteById(id);
+			  modelMap.addFlashAttribute("message" , "刪除成功");
+			  return "redirect:../";
+		} catch (Exception e) {
+			model.addAttribute("supplier" , new Supplier());
+			model.addAttribute("suppliers" , supplierRepository.findAll());
+			model.addAttribute("_method" , "POST");
+			model.addAttribute("message" , "供應商尚有訂單無法刪除");
+			return "supplier";
+		} 
+		  
+		   
 	}
 	
 }

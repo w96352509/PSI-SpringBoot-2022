@@ -123,7 +123,8 @@ public class ProductController {
 				supllier = s;
 				fileName = supllier + product.getName() + ".jpg";
 			}
-			lineNotify.sendImage(product, fileName);
+			System.out.println(fileName);
+			lineNotify.sendImage(product, fileName.trim());
 			return "redirect:../";
 		} catch (Exception e) {
 			Product product = productRepository.findById(id).get();

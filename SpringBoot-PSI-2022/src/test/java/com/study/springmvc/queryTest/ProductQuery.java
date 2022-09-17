@@ -21,10 +21,7 @@ public class ProductQuery {
 	@Test
 	public void test() {
 		
-		 List<String> supName = productRepository.findById(1L).get().getPurchaseItems().stream().map(c->c.getPurchase().getSupplier().getName()).collect(Collectors.toList());
-		 for(String s : supName) {
-			 System.out.println(s);
-		 }
+		 System.out.println(productRepository.queryInventories());
 	}
 	
 }

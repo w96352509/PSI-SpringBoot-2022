@@ -65,6 +65,7 @@ public class LineNotify {
 		String lineNotifyUrl = "https://notify-api.line.me/api/notify";
 		// 4. 上傳檔案
 		File file = new File("C:\\Users\\vic\\Desktop\\複習檔案\\PSI\\圖片\\" + filename);
+		System.out.println(file);
 		// 5. 發送前設定
 		// -------------------------------------------------------------------------
 		// 標頭檔

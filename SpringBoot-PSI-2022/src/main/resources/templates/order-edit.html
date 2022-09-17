@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>PurchasePage</title>
+<script th:inline="javascript">
+    var message = /*[[${message}]]*/
+    console.log(message);
+    if(message != null){
+    	alert(message);
+    }
+    
+    var resultMsg = /*[[${resultMsg}]]*/
+        console.log(resultMsg);
+    if(resultMsg != null){
+    	alert(resultMsg);
+    }    
+    
+</script>
+ <!-- Header 區 -->
+ <th:block th:include="./include/header :: header"></th:block>
+</head>
+<body>
+ <!-- 選單區 -->
+ <th:block th:include="./include/navbar :: navbar"></th:block>
+ 
+ <!-- Context區 -->
+ 
+ <div class="container my-2">
+  <h1>Order 頁面</h1>
+  <br />
+  <form action="#" th:action="@{/order/update}" th:object="${order}" th:method="${_method}">
+    <div class="form-group">
+       <input type="hidden" th:field="*{id}" />
+       
+       <!-- 採購日期 -->  
+       <label style="font-size: 20px;">採購日期(預設今天日期) :</label>
+       <span class="fieldError" th:if="${#fields.hasErrors('*{date}')}" th:errors="*{date}"></span>
+	   <input type="date"
+			  th:value="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}"
+			  th:field="*{date}" class="form-control" />
+       
+       <!-- 選擇客戶人員 -->
+       <label style="font-size: 20px;">客戶 :</label>
+       <select class="form-control select2" th:field="*{customer.id}" id="customer.id">
+		  <option th:each="c:${customers}" th:value="${c.id}" th:text="${c.name}"></option>
+	   </select>
+       
+       <!-- 選擇經手人員 -->
+       <label style="font-size: 20px;">經手人員 :</label>
+       <select class="form-control select2" th:field="*{employee.id}" id="employee.id">
+		  <option th:each="e:${employees}" th:value="${e.id}" th:text="${e.name}"></option>
+	   </select>
+	   <br />
+	</div>
+    <br />
+    <input type="submit" class="btn btn-primary" th:value="${_method}">
+    <a type="button" th:href="@{/order/}" class="btn btn-warning" >重置</a>
+  </form>
+  
+  <br />
+    <div id="message" class="fieldError"  th:text="${message}">0</div>
+ </div>
+ <!-- footer區 -->
+ <th:block th:include="./include/footer :: footer"></th:block>
+</body>
+</html>

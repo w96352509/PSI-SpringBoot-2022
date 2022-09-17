@@ -2,6 +2,7 @@ package com.study.springmvc.queryTest;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.study.springmvc.entity.Order;
 import com.study.springmvc.entity.Purchase;
+import com.study.springmvc.entity.PurchaseItem;
 import com.study.springmvc.repository.CustomerRepository;
 import com.study.springmvc.repository.EmployeeRepository;
 import com.study.springmvc.repository.OrderRepository;
@@ -30,10 +32,8 @@ public class PurchaseQuery {
 	@Test
 	public void test() {
 		
-		Purchase purchase = purchaseRepository.findById(1L).get();
-		System.out.println(purchase.getDate());
-		System.out.println(purchase.getEmployee().getName());
-		System.out.println(purchase.getSupplier().getName());
+		
+		
 		
 	}
 	

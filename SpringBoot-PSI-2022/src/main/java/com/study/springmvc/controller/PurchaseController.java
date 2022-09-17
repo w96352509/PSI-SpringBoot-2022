@@ -6,6 +6,9 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,6 +27,7 @@ import com.study.springmvc.repository.ProductRepository;
 import com.study.springmvc.repository.PurchaseItemRepository;
 import com.study.springmvc.repository.PurchaseRepository;
 import com.study.springmvc.repository.SupplierRepository;
+
 
 @Controller
 @RequestMapping("/purchase")
@@ -59,6 +63,8 @@ public class PurchaseController {
 
 	@Autowired
 	private ProductRepository productRepository;
+	
+	
 	
 	@GetMapping("/")
 	public String index(Model model, @ModelAttribute Purchase purchase) {
@@ -154,12 +160,46 @@ public class PurchaseController {
 // 明細部分------------------------------------------------------------------------------------------
 
 	// 明細主頁
-	@GetMapping("/{id}/item")
-	public String itemIndex(@PathVariable("id") Long id , Model model , @ModelAttribute PurchaseItem purchaseItem) {
-		model.addAttribute("purchase" , purchaseRepository.findById(id).get());
+	@GetMapping("/{pid}/item")
+	public String itemIndex(@PathVariable("pid") Long pid , Model model , @ModelAttribute PurchaseItem purchaseItem) {
+		Purchase purchase = purchaseRepository.findById(pid).get();
+		model.addAttribute("purchase" , purchase);
 		model.addAttribute("products" , productRepository.findAll());
 		model.addAttribute("_method" , "POST");
 		return "purchaseItem";
+	}
+	
+	@PostMapping("/{pid}/item")
+	public String add(@PathVariable("pid") Long pid , @ModelAttribute PurchaseItem purchaseItem , RedirectAttributesModelMap modelMap) {
+		if(purchaseItem.getAmount() == null) {
+		   purchaseItem.setAmount(1);
+		}
+		purchaseItemRepository.save(purchaseItem);
+		modelMap.addFlashAttribute("message" , "新增成功");
+		return "redirect:./item";
+	}
+	
+	@GetMapping("/{pid}/item/{iid}")
+	public String get(@PathVariable("pid") Long pid , @PathVariable("iid") Long iid , Model model) {
+		model.addAttribute("purchaseItem" , purchaseItemRepository.findById(iid).get());
+		model.addAttribute("purchase" , purchaseRepository.findById(pid).get());
+		model.addAttribute("products" , productRepository.findAll());
+		model.addAttribute("_method" , "PUT");
+		return "purchaseItem";
+	}
+	
+	@PutMapping("/{pid}/item")
+	public String update(@PathVariable("pid") Long pid , Model model , @ModelAttribute PurchaseItem purchaseItem , RedirectAttributesModelMap modelMap) {
+		purchaseItemRepository.save(purchaseItem);
+		modelMap.addFlashAttribute("message" , "修改成功");
+		return "redirect:./item";
+	}
+	
+	@GetMapping("/{pid}/item/delete/{iid}")
+	public String delete(@PathVariable("pid") Long pid , @PathVariable("iid") Long iid , RedirectAttributesModelMap modelMap) {
+		purchaseItemRepository.deleteById(iid);
+		modelMap.addFlashAttribute("message" , "刪除成功");
+		return "redirect:../";
 	}
 	
 }
