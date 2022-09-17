@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributesModelMap;
 
 import com.study.springmvc.entity.Purchase;
+import com.study.springmvc.entity.PurchaseItem;
 import com.study.springmvc.repository.EmployeeRepository;
+import com.study.springmvc.repository.ProductRepository;
 import com.study.springmvc.repository.PurchaseItemRepository;
 import com.study.springmvc.repository.PurchaseRepository;
 import com.study.springmvc.repository.SupplierRepository;
@@ -55,6 +57,9 @@ public class PurchaseController {
 	@Autowired
 	private EmployeeRepository employeeRepository;
 
+	@Autowired
+	private ProductRepository productRepository;
+	
 	@GetMapping("/")
 	public String index(Model model, @ModelAttribute Purchase purchase) {
 		model.addAttribute("employees", employeeRepository.findAll());
@@ -150,8 +155,10 @@ public class PurchaseController {
 
 	// 明細主頁
 	@GetMapping("/{id}/item")
-	public String itemIndex(@PathVariable("id") Long id , Model model) {
+	public String itemIndex(@PathVariable("id") Long id , Model model , @ModelAttribute PurchaseItem purchaseItem) {
 		model.addAttribute("purchase" , purchaseRepository.findById(id).get());
+		model.addAttribute("products" , productRepository.findAll());
+		model.addAttribute("_method" , "POST");
 		return "purchaseItem";
 	}
 	
