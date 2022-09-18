@@ -70,7 +70,7 @@
      <td th:text="${dept.manager}"></td>
      <td>
      <span  th:switch="${#lists.size(dept.employees)}">
-      <span th:case="0">此員工尚有部門</span>
+      <span th:case="0">此部門無員工</span>
        <span th:case="*">
         <span th:each="e:${dept.employees}">
         <a th:href="@{/employee/{id}(id=${e.id})}" th:text="${e.name}"></a>

@@ -35,7 +35,9 @@
        
        <!-- 採購日期 -->  
        <label style="font-size: 20px;">採購日期(預設今天日期) :</label>
-       <input type="date" th:value="${#dates.format(#dates.createNow(),'yyyy-MM-dd')}" 
+       <input type="date" 
+              th:field="*{date}"
+              th:value="${#dates.format(#dates.createNow(),'yyyy-MM-dd')}" 
               id="date" class="form-control"  />
        <br />
        

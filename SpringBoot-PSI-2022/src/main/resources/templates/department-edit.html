@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>DepartmentPage</title>
+<title>EmployeePage</title>
 <script th:inline="javascript">
     var message = /*[[${message}]]*/
     console.log(message);
@@ -22,7 +22,7 @@
  <!-- Context區 -->
  
  <div class="container my-2">
-  <h1>Department 頁面</h1>
+  <h1>Employee 頁面</h1>
   <br />
   <form action="#" th:action="@{/department/update}" th:object="${department}" th:method="${_method}">
     <div class="form-group">
@@ -40,7 +40,7 @@
     <br />
     <input type="submit" class="btn btn-primary" th:value="${_method}">
   </form>
-  
+  </div>
   <br />
  <!-- footer區 -->
  <th:block th:include="./include/footer :: footer"></th:block>

@@ -1,5 +1,8 @@
 package com.study.springmvc.controller;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -102,11 +105,13 @@ public class EmployeeController {
 			modelMap.addFlashAttribute("resultMsg", "删除成功");
 			return "redirect:../";
 		} catch (Exception e) {
+			List<Long> orderId    = employeeRepository.findById(id).get().getOrders().stream().map(c->c.getId()).collect(Collectors.toList());
+			List<Long> PurchaseId = employeeRepository.findById(id).get().getPurchases().stream().map(c->c.getId()).collect(Collectors.toList());
 			model.addAttribute("employee" , new Employee());
 			model.addAttribute("employees", employeeRepository.findAll());
 			model.addAttribute("departments", departmentRepository.findAll());
 			model.addAttribute("_method", "POST");
-			model.addAttribute("message", "刪除失敗");
+			model.addAttribute("message", String.format("此員工尚有工作 : 訂單:%s , 採購單:%s", orderId , PurchaseId));
 			return "employee";
 		}
 	}

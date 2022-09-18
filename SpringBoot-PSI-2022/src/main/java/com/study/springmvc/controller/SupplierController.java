@@ -1,5 +1,8 @@
 package com.study.springmvc.controller;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,10 +93,11 @@ public class SupplierController {
 			  modelMap.addFlashAttribute("message" , "刪除成功");
 			  return "redirect:../";
 		} catch (Exception e) {
+			List<Long> pid = supplierRepository.findById(id).get().getPurchases().stream().map(c->c.getId()).collect(Collectors.toList());
 			model.addAttribute("supplier" , new Supplier());
 			model.addAttribute("suppliers" , supplierRepository.findAll());
 			model.addAttribute("_method" , "POST");
-			model.addAttribute("message" , "供應商尚有訂單無法刪除");
+			model.addAttribute("message" , "供應商尚有訂單無法刪除(採購單:" + pid + ")");
 			return "supplier";
 		} 
 		  

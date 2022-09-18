@@ -20,6 +20,23 @@
  <!-- Context區 -->
  <div class="container">
   <h1>PSI 資料表關聯圖</h1>
+  <font>功能介紹 : </font><p/>
+  <font>Department : (add/update/delete(有員工時不可刪除))  </font><p/>
+  <font>Employee&nbsp;&nbsp;&nbsp;&nbsp;: (add/update/delete(員工有工作時無法刪除))  </font><p/>
+  <font>Supplier&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: (add/update/delete(供應商有被採購時無法刪除))  </font><p/>
+  <font>Purchase&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: (add/update/delete(有細目無法刪除)/細目連結)  </font><p/>
+  <font>PurchaseItem&nbsp;: (add/update/delete)</font><p/>
+  <font>Cutomer&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: (add/update/delete(有訂單時無反刪除))</font><p/>
+  <font>Order&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: (add/update/delete(有細目無法刪除)/細目連結)</font><p/>
+  <font>OrderItem&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: (add/update/delete)</font><p/>
+  <font>商品操作 : Product(名稱/成本/銷售)</font><p/> 
+  <font>客戶操作 : Customer(名稱/電話)</font><p/>
+  <font>供應操作 : Supplier(名稱)</font><p/>  
+  <font>部門操作 : Department(名稱/主管)   -> Department(員工名稱 / 部門) </font><p/>                            </font><p/>
+  <font>訂單操作 : Order(員工/客戶)        -> OrderItem(商品/購買數量) </font><p/>
+  <font>採購操作 : Purchase(員工/供應者)   -> PurchaseItem(商品/購買數量) </font><p/>
+  
+  
   <img class="img-responsive" th:src="@{/image/psi_table.png}">
  </div>
  <!-- footer區 -->

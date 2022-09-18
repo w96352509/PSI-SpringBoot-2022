@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.study.springmvc.entity.Product;
+import com.study.springmvc.entity.view.Inventory;
 import com.study.springmvc.repository.ProductRepository;
 
 
@@ -20,8 +21,9 @@ public class ProductQuery {
 	
 	@Test
 	public void test() {
-		
-		 System.out.println(productRepository.queryInventories());
+		 Inventory inventory = productRepository.findInventoryById(1L);
+		 System.out.println(inventory.getAmount1());
+		 System.out.println(inventory.getAmount2());
 	}
 	
 }

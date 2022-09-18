@@ -35,6 +35,10 @@ public class Employee {
 	@OrderBy("id ASC")
 	private Set<Order> orders = new LinkedHashSet<>();
 
+	@OneToMany(mappedBy = "employee")
+	@OrderBy("id ASC")
+	private Set<Purchase> purchases = new LinkedHashSet<>(); 
+	
 	public Long getId() {
 		return id;
 	}
@@ -65,6 +69,14 @@ public class Employee {
 
 	public void setOrders(Set<Order> orders) {
 		this.orders = orders;
+	}
+
+	public Set<Purchase> getPurchases() {
+		return purchases;
+	}
+
+	public void setPurchases(Set<Purchase> purchases) {
+		this.purchases = purchases;
 	}
 	
 	

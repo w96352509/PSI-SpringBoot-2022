@@ -178,9 +178,6 @@ public class OrderController {
 				model.addAttribute("_method", "POST");
 				return "orderitem";
 			}
-			if (orderItem.getAmount() == null) {
-				orderItem.setAmount(1);
-			}
 			orderItemRepository.save(orderItem);
 			return "redirect:./item";
 		}
