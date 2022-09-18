@@ -178,6 +178,9 @@ public class OrderController {
 				model.addAttribute("_method", "POST");
 				return "orderitem";
 			}
+			if(orderItem.getAmount() == null || orderItem.getAmount() == 0) {
+				orderItem.setAmount(1);
+			}
 			orderItemRepository.save(orderItem);
 			return "redirect:./item";
 		}
@@ -192,7 +195,18 @@ public class OrderController {
 		}
 		
 		@PutMapping("/{oid}/item")
-		public String update(@PathVariable("oid") Long oid , Model model , @ModelAttribute OrderItem orderItem , RedirectAttributesModelMap modelMap) {
+		public String update(@Valid @ModelAttribute OrderItem orderItem, @PathVariable("oid") long oid, BindingResult result, Model model , RedirectAttributesModelMap modelMap) {
+			inventoryValidator.validate(orderItem, result);
+			if(result.hasErrors()) {
+				model.addAttribute("order", orderRepository.findById(oid).get());
+				model.addAttribute("products", productRepository.findAll());
+				model.addAttribute("_method", "POST");
+				return "orderitem";
+			}
+			if(orderItem.getAmount() == null || orderItem.getAmount() == 0) {
+				orderItem.setAmount(1);
+			}
+			
 			orderItemRepository.save(orderItem);
 			modelMap.addFlashAttribute("message" , "修改成功");
 			return "redirect:./item";

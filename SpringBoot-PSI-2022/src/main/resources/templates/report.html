@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>SupplierPage</title>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<script type="text/javascript" th:inline="javascript"> 
+google.charts.load('current', {'packages':['corechart']}); // 固定
+google.charts.setOnLoadCallback(drawChart);                // 固定
+
+
+function drawChart() {
+	OrderItemAmount(1); // 銷售
+	PurchaseItemAmount(1);
+}
+
+
+function OrderItemAmount(chartId) {
+	var data = google.visualization.arrayToDataTable([ // 固定
+        ['Name', '銷售量'],                           // key and Value
+        
+        /*[# th:each="row : ${inventories}"]*/
+        
+        ['[[${row.name}]]', [[${row.amount2}]]],
+        
+        /*[/]*/
+    ]);
+    
+	var options = {
+		title: '銷售量'                                // 標題
+	};
+	
+	var chart = new google.visualization.BarChart(document.getElementById('piechart'));
+	switch(chartId) {
+	case 2:
+		chart = new google.visualization.PieChart(document.getElementById('piechart'));
+		break;
+	case 3:
+		chart = new google.visualization.ColumnChart(document.getElementById('piechart'));
+		break;
+	case 4:
+		chart = new google.visualization.LineChart(document.getElementById('piechart'));
+		break;	
+    }
+
+       chart.draw(data, options);
+	
+}  
+
+function PurchaseItemAmount(chartId) {
+	var data = google.visualization.arrayToDataTable([ // 固定
+        ['Name', '進貨量'],                           // key and Value
+        
+        /*[# th:each="row : ${inventories}"]*/
+        
+        ['[[${row.name}]]', [[${row.amount1}]]],
+        
+        /*[/]*/
+    ]);
+    
+	var options = {
+		title: '進貨量'                                // 標題
+	};
+	
+	var chart = new google.visualization.BarChart(document.getElementById('piechart2'));
+	switch(chartId) {
+	case 2:
+		chart = new google.visualization.PieChart(document.getElementById('piechart2'));
+		break;
+	case 3:
+		chart = new google.visualization.ColumnChart(document.getElementById('piechart2'));
+		break;
+	case 4:
+		chart = new google.visualization.LineChart(document.getElementById('piechart2'));
+		break;	
+    }
+
+       chart.draw(data, options);
+	
+}  
+
+</script>
+
+<!-- Header 區 -->
+<th:block th:include="./include/header :: header"></th:block>
+</head>
+<body>
+	<!-- 選單區 -->
+	<th:block th:include="./include/navbar :: navbar"></th:block>
+
+	<!-- Context區 -->
+
+
+	<body>
+	<h1>Google Charts With Thymeleaf</h1>
+      
+	 <td valign="top">
+				<form class="pure-form">
+					<fieldset>
+						<legend>
+							Order Chart |
+							<a href="#" onclick="OrderItemAmount(1)">bar</a> |
+							<a href="#" onclick="OrderItemAmount(2)">pie</a> |
+							<a href="#" onclick="OrderItemAmount(3)">column</a> |
+							<a href="#" onclick="OrderItemAmount(4)">line</a>
+						</legend>
+						<div id="piechart" style="width: 500px; height: 300px;"></div>
+					</fieldset>
+				</form>
+	  </td>	
+	  
+	  <td valign="top">
+				<form class="pure-form">
+					<fieldset>
+						<legend>
+							Purchase Chart |
+							<a href="#" onclick="PurchaseItemAmount(1)">bar</a> |
+							<a href="#" onclick="PurchaseItemAmount(2)">pie</a> |
+							<a href="#" onclick="PurchaseItemAmount(3)">column</a> |
+							<a href="#" onclick="PurchaseItemAmount(4)">line</a>
+						</legend>
+						<div id="piechart2" style="width: 500px; height: 300px;"></div>
+					</fieldset>
+				</form>
+	  </td>		
+	  		
+	</body>
+    
+    <!-- footer區 -->
+	<th:block th:include="./include/footer :: footer"></th:block>
+</body>
+
+</html>
