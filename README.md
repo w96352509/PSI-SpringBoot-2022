@@ -11,4 +11,5 @@ DB       : mysql
 紀錄修正(9/18) : 當訂單0時  view 會 500 / 運用 interface + 自訂 JPA 取得 Product的部分資訊完成動態庫存
                  
 
+下專案:完成我的投資組合(前端 Jquery,Ajax / 後 : springmvc + springJPA  + web ) / 主要練習 : 後臺接收 json 格式等
 筆記處 : https://github.com/w96352509/Note/tree/main/PSI
