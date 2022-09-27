@@ -1,10 +1,12 @@
 package com.study.springmvc.DesignPattern.session02.phone;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PhoneFactory {
 
 	private Subject subject;
+	
 	
 	// 輸入目前版本(主題) + 手機清單(訂閱者們)
 	public void setSystemAndPhoneType(sys name , List<Phone> phones) {

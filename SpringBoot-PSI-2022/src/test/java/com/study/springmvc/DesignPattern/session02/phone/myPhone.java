@@ -1,4 +1,4 @@
-package com.study.springmvc.DesignPattern.session02.phone;
+   package com.study.springmvc.DesignPattern.session02.phone;
 
 public class myPhone implements Observer {
 	private Subject subject;
