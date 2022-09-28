@@ -10,7 +10,7 @@ public class Main2 {
 
 	public static void main(String[] args) throws IOException {
 		InputStream in = new LowerCaseInputStream(new BufferedInputStream(new FileInputStream("C:\\Users\\vic\\git\\PSI202209\\SpringBoot-PSI-2022\\src\\test\\java\\com\\study\\springmvc\\DesignPattern\\session03\\IO\\test.txt")));
-		byte[] bytes = new byte[ in.available()]; 
+		byte[] bytes = new byte[ in.available()]; // 放入 byte 陣列 
 		int z; // ASCII 字元儲存
 		while((z = in .read(bytes, 0, bytes.length)) != -1)
 		{
