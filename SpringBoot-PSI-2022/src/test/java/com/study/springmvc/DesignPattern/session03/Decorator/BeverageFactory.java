@@ -1,9 +1,12 @@
 package com.study.springmvc.DesignPattern.session03.Decorator;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class BeverageFactory {
 
 	Beverage beverage;
-
+	
 	public String getBeverage(Beveragemenu name) {
 		switch (name) {
 		case HouseBlend:
@@ -20,7 +23,7 @@ public class BeverageFactory {
 
 	}
 
-	public String getBeverageAndCondimentDecorator(Beveragemenu name, CondimentDecoratormenu cond) {
+	public String getBeverageAndCondimentDecorator(Beveragemenu name , CondimentDecoratormenu cond) {
 		getBeverage(name);
 		switch (cond) {
 		
@@ -28,6 +31,10 @@ public class BeverageFactory {
 			beverage = new Mocha(beverage);
 			return beverage.getDescription() + "價錢:" + beverage.cost();
 		
+		case Milk:
+			beverage = new Milk(beverage);
+			return beverage.getDescription() + "價錢:" + beverage.cost();	
+			
 		default:
 			return null;
 		}
@@ -39,6 +46,6 @@ public class BeverageFactory {
 	}
 
 	enum CondimentDecoratormenu {
-		Mocha
+		Mocha , Milk
 	}
 }
